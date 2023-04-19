@@ -35,6 +35,7 @@ namespace postgr2
             CRUD g = new CRUD();
             g.table = "v1";
             g.view = true;
+            g.n = (int)PG.Select_size("v1");
             g.Show();
         }
 
