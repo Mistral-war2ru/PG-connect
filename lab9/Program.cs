@@ -220,6 +220,23 @@ namespace postgr2
             else throw new Exception("Not Connected!");
         }
 
+        public static void Delete2(string table_view, string id_name, string id, string id_name2, string id2)
+        {
+            if (con != null)
+            {
+                if (con.State == ConnectionState.Open)
+                {
+                    NpgsqlCommand com = con.CreateCommand();
+                    com.CommandText = "delete from public.\"" + table_view +
+                        "\" where \"" + id_name + "\" = " + id
+                        + " and \"" + id_name2 + "\" = " + id2;
+                    com.ExecuteNonQuery();
+                }
+                else throw new Exception("Not Opened Connection!");
+            }
+            else throw new Exception("Not Connected!");
+        }
+
         public static void SendCU(string tcom)
         {
             if (con != null)

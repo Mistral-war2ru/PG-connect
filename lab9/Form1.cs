@@ -44,6 +44,8 @@ namespace postgr2
             CRUD g = new CRUD();
             g.table = "sets";
             g.pk_name = "setid";
+            g.pk_name2 = "setyear";
+            //g.allow_upd = false;
             g.Show();
         }
     }

@@ -13,8 +13,10 @@ namespace postgr2
     public partial class CRUD : Form
     {
         public bool view = false;
+        public bool allow_upd = true;
         public string table = "";
         public string pk_name = "";
+        public string pk_name2 = "";
         public int n = 5;
 
         public string tcom = "";
@@ -54,6 +56,7 @@ namespace postgr2
                 button2.Hide();
                 button3.Hide();
             }
+            if (!allow_upd) button2.Hide();
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -89,20 +92,24 @@ namespace postgr2
 
         private void button3_Click(object sender, EventArgs e)
         {
-            if ((table != "") && (pk_name != ""))
+            if ((table != "") && (pk_name != "") && (pk_name2 != ""))
             {
                 foreach (DataGridViewRow x in dataGridView1.SelectedRows)
-                {
+                    PG.Delete2(table, pk_name, (string)x.Cells[pk_name].Value,
+                        pk_name2, (string)x.Cells[pk_name2].Value);
+            }
+            else if((table != "") && (pk_name != ""))
+            {
+                foreach (DataGridViewRow x in dataGridView1.SelectedRows)
                     PG.Delete(table, pk_name, (string)x.Cells[pk_name].Value);
-                }
-                resize();
+            }
+            resize();
+            reload_view();
+            if (dataGridView1.Rows.Count == 0)
+            {
+                int pg = Convert.ToInt32(textBox1.Text);
+                if (pg > 1) textBox1.Text = (pg - 1).ToString();
                 reload_view();
-                if (dataGridView1.Rows.Count == 0)
-                {
-                    int pg = Convert.ToInt32(textBox1.Text);
-                    if (pg > 1) textBox1.Text = (pg - 1).ToString();
-                    reload_view();
-                }
             }
         }
 
