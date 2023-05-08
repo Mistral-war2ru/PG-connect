@@ -99,7 +99,7 @@ namespace postrg3
                         StreamWriter1.WriteLine("</b></font></td>");
                     }
                     StreamWriter1.WriteLine("</tr>");
-                    for (i = 1; i < table[i].Count; i++)
+                    for (i = 1; i < table.Count; i++)
                     {
                         if ((i % 2 - 1) == 0)
                         {
